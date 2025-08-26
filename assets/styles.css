@@ -1,0 +1,64 @@
+
+:root{
+  --bg:#ffffff; --surface:#ffffff; --ink:#0a0a0a; --muted:#6b7280; --line:#e5e7eb;
+  --accent:#111; --accent-2:#000; --highlight:#ffd54a; --danger:#e11d48;
+  --radius:14px; --shadow:0 10px 34px rgba(0,0,0,.08);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+.wrap{width:100%;max-width:1100px;margin-inline:auto;padding-inline:clamp(12px,2vw,20px)}
+.header{position:sticky;top:0;background:rgba(255,255,255,.86);backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid var(--line);z-index:10}
+.topbar{display:flex;gap:12px;align-items:center;padding:12px 0}
+.brand{display:flex;gap:10px;align-items:center;font-weight:800}
+.brand small{color:var(--muted);font-weight:600;font-size:12px}
+.logo{width:22px;height:22px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+.grid{display:grid;gap:16px}
+.grid-2{grid-template-columns:repeat(2,1fr)} @media(max-width:740px){.grid-2{grid-template-columns:1fr}}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.spacer{flex:1}
+.btn,input,textarea,select{border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);font:inherit}
+.btn{padding:10px 14px;font-weight:700;cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover{background:var(--accent-2)}
+.input{padding:11px 12px;width:100%}
+h1,h2{margin:0}
+.section-title{font-size:18px;font-weight:800;margin-bottom:8px}
+.badge{display:inline-flex;gap:6px;border:1px solid var(--line);border-radius:999px;padding:6px 8px;font-size:12px}
+.code{background:#f8fafc;border:1px solid var(--line);border-radius:8px;padding:2px 6px}
+.table{width:100%;border-collapse:collapse}
+th,td{padding:8px;border-bottom:1px solid var(--line);text-align:left}
+th{color:var(--muted);font-weight:700}
+.notice{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;color:var(--muted)}
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.18);backdrop-filter:blur(2px);display:grid;place-items:center;z-index:9999}
+.modal{width:min(760px,92vw);background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.15)}
+.modal .modal-head{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--line)}
+.modal .modal-body{padding:14px}
+.modal .modal-foot{display:flex;gap:8px;justify-content:flex-end;padding:10px 14px;border-top:1px solid var(--line)}
+.accordion-header{display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:8px 0}
+.accordion-body{display:none;padding-top:10px}
+.accordion.open .accordion-body{display:block}
+.chev{transition:transform .2s ease}
+.accordion.open .chev{transform:rotate(90deg)}
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#111;color:#fff;border-radius:12px;padding:10px 14px;font-weight:600;opacity:0;pointer-events:none;transition:opacity .2s, transform .2s;z-index:99999}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(-6px)}
+
+.muted{color:var(--muted)}
+
+
+h1{font-size:clamp(28px,3.6vw,40px);line-height:1.15;margin:0 0 6px}
+p.lead{font-size:clamp(16px,1.6vw,18px);color:#1f2937;margin:0}
+.card{padding:22px}
+.btn{padding:11px 16px;border-radius:12px}
+.input{padding:12px 14px;border-radius:12px}
+.q-input{min-height:110px} /* question textarea */
+.table textarea.input{width:100%;min-height:110px}
+.header .topbar{padding:14px 0}
+
+
+/* Modal scrolling + page lock */
+body.modal-open{overflow:hidden;height:100vh}
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.22);backdrop-filter:blur(2px);display:grid;place-items:center;z-index:9999;overflow-y:auto;overscroll-behavior:contain}
+.modal{width:min(820px,94vw);max-height:calc(100svh - 24px);display:flex;flex-direction:column;overflow:hidden}
+.modal .modal-body{flex:1;overflow:auto;-webkit-overflow-scrolling:touch}
+.modal .modal-head,.modal .modal-foot{flex:0 0 auto}

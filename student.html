@@ -1,0 +1,29 @@
+
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Classwork — Student</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head><body>
+<main class="wrap" style="padding:18px 0">
+  <div class="card">
+    <h2 class="section-title">Enter your worksheet code</h2>
+    <div class="grid grid-2">
+      <input id="code" class="input" placeholder="ABC123">
+      <input id="name" class="input" placeholder="Your full name">
+    </div>
+    <div class="row" style="margin-top:10px"><button id="startBtn" class="btn primary">Start</button></div>
+    <div id="mount" style="margin-top:12px"></div>
+  </div>
+</main>
+
+<script src="js/config.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+<script src="js/app-compat.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/modal.js"></script>
+<script src="js/student.js"></script>
+</body></html>

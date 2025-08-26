@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 72" role="img" aria-label="Classwork logo — page lines">
+  <style>
+    .paper { fill:#fff; stroke:#111; stroke-width:3; rx:10 }
+    .tab { fill:#fff; stroke:#111; stroke-width:3 }
+    .line { stroke:#111; stroke-width:3; stroke-linecap:round; stroke-dasharray:60; stroke-dashoffset:60; opacity:.9 }
+    .muted{ stroke:#bfc6cf; opacity:.9 }
+    .accent{ stroke:#ffd54a; stroke-width:6; stroke-linecap:round; stroke-dasharray:60; stroke-dashoffset:60 }
+    /* Anim */
+    .l1{ animation: draw .5s .15s ease-out forwards }
+    .l2{ animation: draw .55s .28s ease-out forwards }
+    .l3{ animation: draw .6s .41s ease-out forwards }
+    .l4{ animation: draw .65s .54s ease-out forwards }
+    .a1{ animation: draw .7s .68s ease-out forwards }
+    @keyframes draw { to { stroke-dashoffset: 0 } }
+    @media (prefers-reduced-motion: reduce){ .line,.accent{ animation:none; stroke-dashoffset:0 } }
+  </style>
+  <!-- page -->
+  <rect x="8" y="8" width="80" height="56" class="paper" rx="10"/>
+  <rect x="40" y="4" width="16" height="10" rx="4" class="tab"/>
+  <!-- lines -->
+  <line x1="22" y1="28" x2="74" y2="28" class="line l1"/>
+  <line x1="22" y1="36" x2="68" y2="36" class="line muted l2"/>
+  <line x1="22" y1="44" x2="62" y2="44" class="line l3"/>
+  <!-- accent underline -->
+  <line x1="22" y1="52" x2="66" y2="52" class="accent a1"/>
+</svg>

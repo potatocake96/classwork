@@ -1,0 +1,29 @@
+
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Classwork — Teacher</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head><body>
+<header class="header"><div class="wrap">
+  <div class="topbar">
+    <div class="brand"><img class="logo" src="assets/logo-page-lines-square.svg" alt="">Classwork <small>worksheets</small></div>
+    <div class="spacer"></div><button id="logout" class="btn">Logout</button>
+    <button id="create-ws" class="btn primary">New worksheet</button>
+  </div>
+</div></header>
+<main class="wrap" style="padding:18px 0">
+  <div id="ws-list" class="grid"></div>
+</main>
+<div id="toast"></div>
+<div id="modal-root"></div>
+
+<script src="js/config.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+<script src="js/app-compat.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/modal.js"></script>
+<script src="js/teacher.js"></script></body></html>

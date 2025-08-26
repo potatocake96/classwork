@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Classwork — Product & How‑to</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"/>
+  <link rel="stylesheet" href="assets/styles.css"/>
+  <style>
+    /* Page-specific tweaks on top of styles.css */
+    .hero { padding: clamp(34px, 6vw, 72px) 0; display:grid; gap:18px; text-align:center; }
+    .hero .title { font-size: clamp(24px, 5vw, 40px); font-weight: 800; letter-spacing: -0.02em; }
+    .hero .subtitle { color: var(--muted); max-width: 800px; margin: 0 auto; }
+    .cta { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:8px; }
+    .grid-3 { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
+    @media (max-width: 920px){ .grid-3 { grid-template-columns: 1fr; } }
+    .feature { padding:18px; border:1px solid var(--line); border-radius:16px; background: var(--surface); }
+    .list { display:grid; gap:10px; }
+    .how { display:grid; gap:16px; }
+    .how ol { padding-left: 18px; }
+    .pill { padding: 3px 8px; border:1px solid var(--line); border-radius: 999px; font-size: 12px; color: var(--muted); display:inline-block; }
+    footer { padding: 24px 0; color: var(--muted); font-size: 12px; text-align:center; }
+    header .brand { display:flex; align-items:center; gap:10px; font-weight:800; }
+    header nav { display:flex; gap:8px; align-items:center; }
+    header { display:flex; align-items:center; justify-content:space-between; padding:12px 0; position:sticky; top:0; background:var(--bg); z-index:10; }
+    .logo { width:28px; height:28px; }
+    .section { padding: clamp(24px,4vw,40px) 0; }
+    .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size:12px; padding:2px 6px; border:1px solid var(--line); border-radius:6px; }
+    .card.soft { background: var(--bg); border:1px dashed var(--line); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <img class="logo" src="assets/logo-page-lines-square.svg" alt="Classwork logo" />
+        <span>Classwork</span>
+        <span class="pill">Minimal • Fast • Teacher‑friendly</span>
+      </div>
+      <nav>
+        <a class="btn" href="login.html">Teacher login</a>
+        <a class="btn" href="student.html">Student</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1 class="title">Assign. Submit. Mark. Export.</h1>
+        <p class="subtitle">A lightweight web app for teachers: create worksheets, share a code, students answer online, and you mark quickly — with competency or percentage modes — then export as PDF.</p>
+        <div class="cta">
+          <a class="btn primary" href="login.html">Get started</a>
+          <a class="btn" href="#how">How it works</a>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="grid-3">
+          <div class="feature">
+            <div class="section-title">Minimal workflow</div>
+            <div class="muted">No fluff. Create a worksheet, add questions, publish, and share the code with students.</div>
+          </div>
+          <div class="feature">
+            <div class="section-title">Competency or percentage</div>
+            <div class="muted">Choose per‑question mode. Competency shows a simple tick; percentage lets you set a max score. No mixing confusion.</div>
+          </div>
+          <div class="feature">
+            <div class="section-title">Export to PDF</div>
+            <div class="muted">Open a clean preview and use your browser’s Print → Save as PDF for records or sharing.</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="how" class="section how">
+        <div class="section-title">How it works</div>
+        <ol class="list">
+          <li><b>Sign in</b> via <span class="kbd">login.html</span> (teachers only).</li>
+          <li><b>Create a worksheet</b> and expand it.</li>
+          <li><b>Add questions</b>. Pick <i>Competency</i> for tick/checkbox marking, or <i>Percentage</i> to set a max value.</li>
+          <li><b>Publish</b> to make it accessible; copy the <b>code</b> or use the <b>Student link</b>.</li>
+          <li>Students open <span class="kbd">student.html</span>, enter the code & name, and submit answers.</li>
+          <li>On the teacher page, new <b>Submissions</b> appear under the worksheet. Use <b>Mark</b> to grade in a popout.</li>
+          <li>Use <b>Export</b> to open the printable preview and save as PDF.</li>
+        </ol>
+      </section>
+
+      <section class="section">
+        <div class="section-title">Deployment notes</div>
+        <div class="grid">
+          <div class="card soft">
+            <ul class="list">
+              <li>Update your Firebase config in <span class="kbd">js/app-compat.js</span> (or your config file) with your project keys.</li>
+              <li>Enable <b>Email/Password</b> in Firebase Authentication.</li>
+              <li>Create the Firestore collections on first use (the app writes them automatically).</li>
+              <li>Serve locally for testing: <span class="kbd">python3 -m http.server 8080</span> then open <span class="kbd">/login.html</span>.</li>
+              <li>For GitHub Pages, push this folder and set the Pages root to the repo main (or <span class="kbd">/docs</span> if you prefer).</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-title">FAQ</div>
+        <div class="grid">
+          <div class="card">
+            <b>Do students need accounts?</b>
+            <div class="muted">No. They just need the worksheet code and their name.</div>
+          </div>
+          <div class="card">
+            <b>Can I mix competency and percentage?</b>
+            <div class="muted">Yes — per question. Competency questions never show a “Max” input in the editor or during marking.</div>
+          </div>
+          <div class="card">
+            <b>Where are files stored?</b>
+            <div class="muted">All state lives in Firestore under your Firebase project; nothing is stored on the student’s device beyond the session.</div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      © <span id="year"></span> <b>Simon Dass</b>. All rights reserved.
+    </footer>
+  </div>
+
+  <script>
+    // set copyright year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

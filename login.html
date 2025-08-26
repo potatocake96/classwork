@@ -1,0 +1,104 @@
+
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Classwork — Sign in</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head><body>
+
+<main class="wrap" style="min-height:100svh; display:grid; place-items:center; padding:clamp(24px,4vw,40px) 0">
+  <section class="card" style="width:min(460px,92vw); padding:28px 24px">
+    <div style="display:grid; justify-items:center; gap:10px; margin-bottom:10px">
+      <img class="logo" src="assets/logo-page-lines-square.svg" alt="" style="width:60px;height:60px">
+      <div style="font-weight:800; font-size:20px;">Classwork</div>
+      <div class="muted" style="font-size:12px">part of the trackME suite</div>
+    </div>
+
+    <div class="grid" style="gap:12px">
+      <label>email<input id="email" class="input" type="email" placeholder="name@example.com" autocomplete="username email"></label>
+      <label>password<input id="pass" class="input" type="password" placeholder="••••••••" autocomplete="current-password"></label>
+      <div class="row" style="justify-content:space-between">
+        <button id="forgot" class="btn">Forgot password?</button>
+        <button id="loginBtn" class="btn primary">Sign in</button>
+      </div>
+      <div id="msg" class="muted" style="min-height:18px"></div>
+    </div>
+  </section>
+</main>
+
+
+<script>
+document.getElementById('loginBtn').addEventListener('click', async ()=>{
+  const email = (document.getElementById('email').value||'').trim();
+  const pass = document.getElementById('pass').value;
+  try{ await $fb.auth.signInWithEmailAndPassword(email, pass); location.href = 'teacher.html'; }
+  catch(e){ document.getElementById('msg').textContent = (e && e.message || 'Login failed').replace('Firebase:',''); }
+});
+
+document.getElementById('forgot').addEventListener('click', async ()=>{
+  const email = (document.getElementById('email').value||'').trim();
+  if(!email){ document.getElementById('msg').textContent = 'Enter your email first.'; return; }
+  try{ await $fb.auth.sendPasswordResetEmail(email); document.getElementById('msg').textContent = 'Reset link sent (if account exists).'; }
+  catch(e){ document.getElementById('msg').textContent = (e && e.message || 'Failed').replace('Firebase:',''); }
+});
+</script>
+
+
+<script src="js/config.js">
+document.getElementById('forgot').addEventListener('click', async ()=>{
+  const email = (document.getElementById('email').value||'').trim();
+  if(!email){ document.getElementById('msg').textContent = 'Enter your email first.'; return; }
+  try{ await $fb.auth.sendPasswordResetEmail(email); document.getElementById('msg').textContent = 'Reset link sent (if account exists).'; }
+  catch(e){ document.getElementById('msg').textContent = (e && e.message || 'Failed').replace('Firebase:',''); }
+});
+</script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js">
+document.getElementById('forgot').addEventListener('click', async ()=>{
+  const email = (document.getElementById('email').value||'').trim();
+  if(!email){ document.getElementById('msg').textContent = 'Enter your email first.'; return; }
+  try{ await $fb.auth.sendPasswordResetEmail(email); document.getElementById('msg').textContent = 'Reset link sent (if account exists).'; }
+  catch(e){ document.getElementById('msg').textContent = (e && e.message || 'Failed').replace('Firebase:',''); }
+});
+</script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js">
+document.getElementById('forgot').addEventListener('click', async ()=>{
+  const email = (document.getElementById('email').value||'').trim();
+  if(!email){ document.getElementById('msg').textContent = 'Enter your email first.'; return; }
+  try{ await $fb.auth.sendPasswordResetEmail(email); document.getElementById('msg').textContent = 'Reset link sent (if account exists).'; }
+  catch(e){ document.getElementById('msg').textContent = (e && e.message || 'Failed').replace('Firebase:',''); }
+});
+</script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js">
+document.getElementById('forgot').addEventListener('click', async ()=>{
+  const email = (document.getElementById('email').value||'').trim();
+  if(!email){ document.getElementById('msg').textContent = 'Enter your email first.'; return; }
+  try{ await $fb.auth.sendPasswordResetEmail(email); document.getElementById('msg').textContent = 'Reset link sent (if account exists).'; }
+  catch(e){ document.getElementById('msg').textContent = (e && e.message || 'Failed').replace('Firebase:',''); }
+});
+</script>
+<script src="js/app-compat.js">
+document.getElementById('forgot').addEventListener('click', async ()=>{
+  const email = (document.getElementById('email').value||'').trim();
+  if(!email){ document.getElementById('msg').textContent = 'Enter your email first.'; return; }
+  try{ await $fb.auth.sendPasswordResetEmail(email); document.getElementById('msg').textContent = 'Reset link sent (if account exists).'; }
+  catch(e){ document.getElementById('msg').textContent = (e && e.message || 'Failed').replace('Firebase:',''); }
+});
+</script>
+<script src="js/utils.js">
+document.getElementById('forgot').addEventListener('click', async ()=>{
+  const email = (document.getElementById('email').value||'').trim();
+  if(!email){ document.getElementById('msg').textContent = 'Enter your email first.'; return; }
+  try{ await $fb.auth.sendPasswordResetEmail(email); document.getElementById('msg').textContent = 'Reset link sent (if account exists).'; }
+  catch(e){ document.getElementById('msg').textContent = (e && e.message || 'Failed').replace('Firebase:',''); }
+});
+</script>
+<script src="js/modal.js">
+document.getElementById('forgot').addEventListener('click', async ()=>{
+  const email = (document.getElementById('email').value||'').trim();
+  if(!email){ document.getElementById('msg').textContent = 'Enter your email first.'; return; }
+  try{ await $fb.auth.sendPasswordResetEmail(email); document.getElementById('msg').textContent = 'Reset link sent (if account exists).'; }
+  catch(e){ document.getElementById('msg').textContent = (e && e.message || 'Failed').replace('Firebase:',''); }
+});
+</script>
+</body></html>

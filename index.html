@@ -3,128 +3,404 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Classwork — Product & How‑to</title>
+  <title>Classwork — Product & How-to</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"/>
+  <!-- Use your app palette and components -->
   <link rel="stylesheet" href="assets/styles.css"/>
+
   <style>
-    /* Page-specific tweaks on top of styles.css */
-    .hero { padding: clamp(34px, 6vw, 72px) 0; display:grid; gap:18px; text-align:center; }
-    .hero .title { font-size: clamp(24px, 5vw, 40px); font-weight: 800; letter-spacing: -0.02em; }
-    .hero .subtitle { color: var(--muted); max-width: 800px; margin: 0 auto; }
-    .cta { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:8px; }
-    .grid-3 { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
-    @media (max-width: 920px){ .grid-3 { grid-template-columns: 1fr; } }
-    .feature { padding:18px; border:1px solid var(--line); border-radius:16px; background: var(--surface); }
-    .list { display:grid; gap:10px; }
-    .how { display:grid; gap:16px; }
-    .how ol { padding-left: 18px; }
-    .pill { padding: 3px 8px; border:1px solid var(--line); border-radius: 999px; font-size: 12px; color: var(--muted); display:inline-block; }
-    footer { padding: 24px 0; color: var(--muted); font-size: 12px; text-align:center; }
-    header .brand { display:flex; align-items:center; gap:10px; font-weight:800; }
-    header nav { display:flex; gap:8px; align-items:center; }
-    header { display:flex; align-items:center; justify-content:space-between; padding:12px 0; position:sticky; top:0; background:var(--bg); z-index:10; }
-    .logo { width:28px; height:28px; }
-    .section { padding: clamp(24px,4vw,40px) 0; }
-    .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size:12px; padding:2px 6px; border:1px solid var(--line); border-radius:6px; }
-    .card.soft { background: var(--bg); border:1px dashed var(--line); }
+    /* Page-only layout polish. We DO NOT override your color vars. */
+    .wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+    header{position:sticky;top:0;z-index:10;background:var(--bg);display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+    header .brand{display:flex;gap:10px;align-items:center;font-weight:800;letter-spacing:-.01em}
+    .logo{width:28px;height:28px}
+    .pill{padding:4px 10px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:12px}
+
+    .btn{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);
+      padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:700;transition:transform .05s ease,background .2s ease,border-color .2s ease}
+    .btn:hover{background:#fbfbfd;border-color:#dfe3ea}
+    .btn:active{transform:translateY(1px)}
+    .btn.primary{background:var(--brand);border-color:#facc15;color:#1f2937}
+    .btn.primary:hover{background:#ffe88a}
+
+    .section{padding:clamp(24px,4vw,44px) 0}
+    .section-title{font-weight:900;letter-spacing:-.02em;margin:0 0 10px}
+    .muted{color:var(--muted)}
+    .grid{display:grid;gap:12px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    @media (max-width:920px){.grid-3{grid-template-columns:1fr}}
+    .card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px}
+
+    /* Hero + subtle emoji rain */
+    .hero{position:relative;overflow:hidden;padding:clamp(44px,7vw,92px) 0;min-height:56svh;display:grid;place-items:center;text-align:center;gap:16px;border-bottom:1px solid var(--line)}
+    .hero .content{position:relative;z-index:1;display:grid;gap:14px}
+    .hero .title{font-size:clamp(28px,5.6vw,48px);font-weight:900;letter-spacing:-.02em}
+    .hero .subtitle{color:var(--muted);max-width:900px;margin:0 auto;line-height:1.6;font-weight:500}
+    .cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+    #hero-emoji{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.12} /* slightly more visible than before */
+
+    /* Demo modal */
+    .demo-backdrop{position:fixed;inset:0;background:rgba(15,23,42,.25);backdrop-filter:blur(4px);display:grid;place-items:center;z-index:40}
+    .demo-modal{width:min(980px,94vw);max-height:92svh;overflow:hidden;background:var(--surface);border:1px solid var(--line);border-radius:20px;display:grid;grid-template-rows:auto 1fr auto;box-shadow:0 20px 60px rgba(0,0,0,.08)}
+    .demo-head,.demo-foot{padding:12px 14px;display:flex;align-items:center;justify-content:space-between}
+    .demo-head{border-bottom:1px solid var(--line)}
+    .demo-foot{border-top:1px solid var(--line)}
+    .demo-body{padding:16px;overflow:auto;background:var(--bg)}
+    .demo-tabs{display:flex;gap:6px}
+    .demo-tab{padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;cursor:pointer;font-weight:700}
+    .demo-tab.active{background:var(--brand);border-color:#facc15;color:#1f2937}
+    .x{background:transparent;border:0;font-size:20px;line-height:1;cursor:pointer;padding:6px;border-radius:8px}
+    .x:hover{background:#f2f3f6}
+
+    .demo-grid{display:grid;gap:14px;grid-template-columns:1.2fr .8fr}
+    @media (max-width:880px){.demo-grid{grid-template-columns:1fr}}
+
+    .input, textarea, select{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);font:inherit}
+    textarea{min-height:160px;line-height:1.6;font-size:16px} /* BIG + legible */
+
+    .q-card{border:1px solid var(--line);border-radius:14px;background:#fff;padding:16px;display:grid;gap:12px}
+    .q-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .q-actions{display:flex;gap:8px}
+    .q-meta{display:grid;gap:12px;grid-template-columns:1fr 1fr}
+    @media (max-width:700px){.q-meta{grid-template-columns:1fr}}
+    .notice{padding:10px;border:1px dashed var(--line);border-radius:12px;color:var(--muted);background:#fafafa}
+    .kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;padding:2px 6px;border:1px solid var(--line);border-radius:6px}
+
+    footer{padding:28px 0;color:var(--muted);font-size:12px;text-align:center}
   </style>
 </head>
 <body>
   <div class="wrap">
     <header>
       <div class="brand">
-        <img class="logo" src="assets/logo-page-lines-square.svg" alt="Classwork logo" />
+        <img class="logo" src="assets/logo-page-lines-square.svg" alt="Classwork logo"/>
         <span>Classwork</span>
-        <span class="pill">Minimal • Fast • Teacher‑friendly</span>
+        <span class="pill">Minimal • Fast • Teacher-friendly</span>
       </div>
-      <nav>
+      <nav class="row">
         <a class="btn" href="login.html">Teacher login</a>
         <a class="btn" href="student.html">Student</a>
       </nav>
     </header>
 
-    <main>
-      <section class="hero">
+    <section class="hero" aria-label="Product overview">
+      <canvas id="hero-emoji"></canvas>
+      <div class="content">
         <h1 class="title">Assign. Submit. Mark. Export.</h1>
-        <p class="subtitle">A lightweight web app for teachers: create worksheets, share a code, students answer online, and you mark quickly — with competency or percentage modes — then export as PDF.</p>
+        <p class="subtitle">
+          A lightweight web app for teachers: create worksheets, share a code, students answer online,
+          and you mark quickly — with competency or percentage modes — then export as PDF.
+        </p>
         <div class="cta">
           <a class="btn primary" href="login.html">Get started</a>
+          <button id="open-demo" class="btn">Try a quick demo</button>
           <a class="btn" href="#how">How it works</a>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="section">
-        <div class="grid-3">
-          <div class="feature">
-            <div class="section-title">Minimal workflow</div>
-            <div class="muted">No fluff. Create a worksheet, add questions, publish, and share the code with students.</div>
-          </div>
-          <div class="feature">
-            <div class="section-title">Competency or percentage</div>
-            <div class="muted">Choose per‑question mode. Competency shows a simple tick; percentage lets you set a max score. No mixing confusion.</div>
-          </div>
-          <div class="feature">
-            <div class="section-title">Export to PDF</div>
-            <div class="muted">Open a clean preview and use your browser’s Print → Save as PDF for records or sharing.</div>
-          </div>
+    <section class="section">
+      <div class="grid-3">
+        <div class="card">
+          <div class="section-title">Minimal workflow</div>
+          <div class="muted">Create a worksheet, add questions, publish, and share the code with students.</div>
         </div>
-      </section>
-
-      <section id="how" class="section how">
-        <div class="section-title">How it works</div>
-        <ol class="list">
-          <li><b>Sign in</b> via <span class="kbd">login.html</span> (teachers only).</li>
-          <li><b>Create a worksheet</b> and expand it.</li>
-          <li><b>Add questions</b>. Pick <i>Competency</i> for tick/checkbox marking, or <i>Percentage</i> to set a max value.</li>
-          <li><b>Publish</b> to make it accessible; copy the <b>code</b> or use the <b>Student link</b>.</li>
-          <li>Students open <span class="kbd">student.html</span>, enter the code & name, and submit answers.</li>
-          <li>On the teacher page, new <b>Submissions</b> appear under the worksheet. Use <b>Mark</b> to grade in a popout.</li>
-          <li>Use <b>Export</b> to open the printable preview and save as PDF.</li>
-        </ol>
-      </section>
-
-      <section class="section">
-        <div class="section-title">Deployment notes</div>
-        <div class="grid">
-          <div class="card soft">
-            <ul class="list">
-              <li>Update your Firebase config in <span class="kbd">js/app-compat.js</span> (or your config file) with your project keys.</li>
-              <li>Enable <b>Email/Password</b> in Firebase Authentication.</li>
-              <li>Create the Firestore collections on first use (the app writes them automatically).</li>
-              <li>Serve locally for testing: <span class="kbd">python3 -m http.server 8080</span> then open <span class="kbd">/login.html</span>.</li>
-              <li>For GitHub Pages, push this folder and set the Pages root to the repo main (or <span class="kbd">/docs</span> if you prefer).</li>
-            </ul>
-          </div>
+        <div class="card">
+          <div class="section-title">Competency or percentage</div>
+          <div class="muted">Choose per-question mode. Competency uses a tick; percentage lets you set a max score.</div>
         </div>
-      </section>
-
-      <section class="section">
-        <div class="section-title">FAQ</div>
-        <div class="grid">
-          <div class="card">
-            <b>Do students need accounts?</b>
-            <div class="muted">No. They just need the worksheet code and their name.</div>
-          </div>
-          <div class="card">
-            <b>Can I mix competency and percentage?</b>
-            <div class="muted">Yes — per question. Competency questions never show a “Max” input in the editor or during marking.</div>
-          </div>
-          <div class="card">
-            <b>Where are files stored?</b>
-            <div class="muted">All state lives in Firestore under your Firebase project; nothing is stored on the student’s device beyond the session.</div>
-          </div>
+        <div class="card">
+          <div class="section-title">Export to PDF</div>
+          <div class="muted">Open a clean preview and use your browser’s Print → Save as PDF for records or sharing.</div>
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
 
-    <footer>
-      © <span id="year"></span> <b>Simon Dass</b>. All rights reserved.
-    </footer>
+    <section id="how" class="section">
+      <div class="section-title">How it works</div>
+      <ol class="grid">
+        <li><b>Sign in</b> via <code>login.html</code> (teachers only).</li>
+        <li><b>Create a worksheet</b> and expand it.</li>
+        <li><b>Add questions</b>. Pick <i>Competency</i> for tick/checkbox marking, or <i>Percentage</i> to set a max value.</li>
+        <li><b>Publish</b> to make it accessible; copy the <b>code</b> or use the <b>Student link</b>.</li>
+        <li>Students open <code>student.html</code>, enter the code & name, and submit answers.</li>
+        <li>In <b>Submissions</b>, click <b>Mark</b> to grade in a popout; save when done.</li>
+        <li>Click <b>Export</b> to open the printable preview and save as PDF.</li>
+      </ol>
+    </section>
+
+    <footer>© <span id="year"></span> <b>Simon Dass</b>. All rights reserved.</footer>
   </div>
 
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+
+  <!-- Emoji rain (slightly more visible & faster; uses your CSS vars) -->
   <script>
-    // set copyright year
-    document.getElementById('year').textContent = new Date().getFullYear();
+  (function(){
+    const canvas = document.getElementById('hero-emoji'); if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const EMOJI = ['📝','✏️','✅','📚','📄','📎','📐','🧪','🧠','🔤','🔢','🧮','📊','🎓'];
+    function css(name,fallback){ try{ const v=getComputedStyle(document.documentElement).getPropertyValue(name).trim(); return v||fallback; }catch{ return fallback; } }
+    const BG = css('--bg', '#f7f9fc');
+
+    let W=0,H=0,drops=[], raf=0, reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function resize(){
+      const r = canvas.parentElement.getBoundingClientRect();
+      const dpr = Math.min(devicePixelRatio||1, 2);
+      canvas.width = Math.max(640, (r.width*dpr)|0);
+      canvas.height= Math.max(360, (r.height*dpr)|0);
+      canvas.style.width = r.width+'px'; canvas.style.height = r.height+'px';
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      W=r.width; H=r.height;
+
+      const density = Math.round(W*H/23000); // slightly denser than before
+      drops = [];
+      for(let i=0;i<density;i++){
+        drops.push({
+          e: EMOJI[(Math.random()*EMOJI.length)|0],
+          x: Math.random()*W,
+          y: Math.random()*H,
+          size: 16 + Math.random()*10,
+          speed: 0.14 + Math.random()*0.22, // tiny bump faster
+          drift: (Math.random()*0.4 - 0.2),
+          alpha: 0.36 + Math.random()*0.16 // a bit more visible
+        });
+      }
+      ctx.textAlign='center'; ctx.textBaseline='middle';
+      ctx.fillStyle = BG; ctx.globalAlpha = 1; ctx.fillRect(0,0,W,H);
+    }
+
+    function frame(){
+      // very light trail
+      ctx.fillStyle = BG; ctx.globalAlpha = 0.12; ctx.fillRect(0,0,W,H); ctx.globalAlpha = 1;
+      for(const d of drops){
+        ctx.globalAlpha = d.alpha;
+        ctx.font = d.size+'px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif';
+        ctx.fillText(d.e, d.x, d.y);
+        if(!reduced){ d.y += d.speed*d.size*0.6; d.x += d.drift*0.6; }
+        if(d.y > H+24){ d.y = -24; d.x = Math.random()*W; }
+        if(d.x < -24){ d.x = W+24; } else if(d.x > W+24){ d.x = -24; }
+      }
+      raf = requestAnimationFrame(frame);
+    }
+
+    new ResizeObserver(resize).observe(canvas.parentElement);
+    resize(); if(!reduced) raf = requestAnimationFrame(frame);
+    addEventListener('visibilitychange', ()=>{ if(document.hidden){ cancelAnimationFrame(raf); } else if(!reduced){ raf=requestAnimationFrame(frame); } });
+  })();
+  </script>
+
+  <!-- Interactive demo (Teacher tab fixed & readable) -->
+  <script>
+  (function(){
+    const openBtn = document.getElementById('open-demo'); if(!openBtn) return;
+    openBtn.addEventListener('click', openDemo);
+
+    function openDemo(){
+      const state = {
+        worksheet: { title:'Sample worksheet', description:'Try me — this is a mock!', code:'ABC123', questions:[
+          { text:'Explain photosynthesis in one or two sentences.', mode:'percentage', max:10 },
+          { text:'Identify the main theme of the poem.', mode:'competency' }
+        ]},
+        student: { name:'', answers:[] },
+        mark: { results:[], score:null }
+      };
+
+      // Shell
+      const backdrop = el('div','demo-backdrop');
+      const modal = el('div','demo-modal');
+      const head = el('div','demo-head');
+      head.innerHTML = '<strong>Classwork — Interactive demo</strong>\
+        <div class="demo-tabs" role="tablist">\
+          <button class="demo-tab active" data-tab="teacher" role="tab">Teacher</button>\
+          <button class="demo-tab" data-tab="student" role="tab">Student</button>\
+          <button class="demo-tab" data-tab="mark" role="tab">Mark</button>\
+          <button class="demo-tab" data-tab="export" role="tab">Export</button>\
+        </div>\
+        <button class="x" aria-label="Close">×</button>';
+      const body = el('div','demo-body');
+      const foot = el('div','demo-foot');
+      foot.innerHTML = '<div class="muted">This is a mock — nothing is saved.</div>\
+        <div class="row">\
+          <button class="btn" data-act="reset">Reset</button>\
+          <button class="btn primary" data-act="close">Close</button>\
+        </div>';
+
+      modal.append(head, body, foot); backdrop.appendChild(modal); document.body.appendChild(backdrop);
+      head.querySelector('.x').onclick = close;
+      foot.querySelector('[data-act="close"]').onclick = close;
+      foot.querySelector('[data-act="reset"]').onclick = ()=>{ close(); openDemo(); };
+      head.querySelectorAll('.demo-tab').forEach(b=> b.onclick=()=> switchTab(b.getAttribute('data-tab')));
+
+      // Start on Teacher
+      switchTab('teacher');
+
+      function switchTab(tab){
+        head.querySelectorAll('.demo-tab').forEach(b=> b.classList.toggle('active', b.getAttribute('data-tab')===tab));
+        try{
+          if (tab==='teacher') return renderTeacher();
+          if (tab==='student') return renderStudent();
+          if (tab==='mark')    return renderMark();
+          if (tab==='export')  return renderExport();
+        }catch(err){
+          body.innerHTML = '<div class="notice">Something went wrong in the demo.</div>';
+          console.error('[demo]', err);
+        }
+      }
+
+      // ===== TEACHER =====
+      function renderTeacher(){
+        body.innerHTML = '';
+        const grid = el('div','demo-grid');
+
+        // left editor
+        const left = el('div','grid');
+        left.append(
+          h('div','section-title','Edit worksheet'),
+          field('Title', input('text', state.worksheet.title, v=> state.worksheet.title=v)),
+          field('Description', textarea(state.worksheet.description, v=> state.worksheet.description=v)),
+          h('div','section-title','Questions'),
+          renderQuestionsEditor()
+        );
+
+        // right "share"
+        const right = el('div','grid');
+        right.append(
+          h('div','section-title','Share'),
+          p('<b>Code:</b> ', code(state.worksheet.code)),
+          p('<b>Student link:</b> ', code('student.html?code='+state.worksheet.code)),
+          notice('This is a demo. In the real app, Publish toggles visibility.')
+        );
+
+        grid.append(left, right); body.appendChild(grid);
+      }
+
+      function renderQuestionsEditor(){
+        const wrap = el('div','grid');
+        state.worksheet.questions.forEach((q,i)=>{
+          const card = el('div','q-card');
+
+          const head = el('div','q-head');
+          head.appendChild(h('div','', 'Q'+(i+1)));
+          const qa = el('div','q-actions');
+          qa.append(btn('Duplicate', ()=>{ state.worksheet.questions.splice(i+1,0, JSON.parse(JSON.stringify(q))); renderTeacher(); }));
+          qa.append(btn('Delete', ()=>{ state.worksheet.questions.splice(i,1); renderTeacher(); }));
+          head.appendChild(qa);
+          card.appendChild(head);
+
+          card.appendChild(textarea(q.text, v=> q.text=v));
+
+          const meta = el('div','q-meta');
+          const modeSel = select([{v:'competency',t:'Competency'},{v:'percentage',t:'Percentage'}], q.mode||'percentage', v=>{ q.mode=v; if(v==='competency') delete q.max; renderTeacher(); });
+          meta.appendChild(field('Mode', modeSel));
+          if ((q.mode||'percentage')==='competency'){
+            meta.appendChild(field('Max', muted('N/A')));   /* <-- now defined */
+          }else{
+            const inp = input('number', q.max ?? 100, v=>{ const n=Number(v)||100; q.max = Math.max(1, Math.min(1000, n)); });
+            inp.min=1; inp.max=1000; inp.step=1;
+            meta.appendChild(field('Max', inp));
+          }
+          card.appendChild(meta);
+          wrap.appendChild(card);
+        });
+
+        const actions = el('div','row');
+        actions.append(btn('Add question', ()=>{ state.worksheet.questions.push({ text:'', mode:'percentage', max:100 }); renderTeacher(); }),
+                       btnPrimary('Save (mock)', ()=> toast('Saved locally (demo)')));
+        wrap.appendChild(actions);
+        return wrap;
+      }
+
+      // ===== STUDENT =====
+      function renderStudent(){
+        body.innerHTML=''; const g=el('div','grid');
+        g.appendChild(notice('Students enter the code and their name. This demo pre-fills the code.'));
+        const card=el('div','card grid');
+        state.student.answers = state.worksheet.questions.map((q,i)=> state.student.answers[i] ?? { q:q.text, a:'' });
+        card.append(field('Code', input('text', state.worksheet.code, ()=>{}, true)));
+        card.append(field('Name', input('text', state.student.name, v=> state.student.name=v)));
+        card.append(h('div','section-title','Questions'));
+        state.worksheet.questions.forEach((q,i)=>{
+          const row=el('div','grid'); row.appendChild(p('<b>Q'+(i+1)+':</b> '+esc(q.text)));
+          row.appendChild(textarea(state.student.answers[i].a, v=> state.student.answers[i].a=v));
+          card.appendChild(row);
+        });
+        card.append(btnPrimary('Submit (mock)', ()=>{ if(!state.student.name.trim()) return toast('Enter a name first'); toast('Submitted (demo)'); switchTab('mark'); }));
+        g.appendChild(card); body.appendChild(g);
+      }
+
+      // ===== MARK =====
+      function renderMark(){
+        body.innerHTML=''; const card=el('div','card grid');
+        card.appendChild(h('div','section-title','Mark submission'));
+        state.mark.results = state.worksheet.questions.map((q,i)=> state.mark.results[i] ?? { score:null, feedback:'' });
+        state.worksheet.questions.forEach((q,i)=>{
+          const one=el('div','q-card');
+          one.appendChild(p('<b>Q'+(i+1)+'.</b> '+esc(q.text)));
+          one.appendChild(p('<span class="muted">Answer:</span> '+esc(state.student.answers[i]?.a || '')));
+          if((q.mode||'percentage')==='competency'){
+            one.appendChild(labelRow(checkbox(state.mark.results[i].score===1, v=> state.mark.results[i].score = v?1:0), 'Competent'));
+          }else{
+            const max=q.max ?? 100;
+            one.appendChild(field('Score (0–'+max+')', input('number', (state.mark.results[i].score ?? 0)*max, v=>{
+              const raw=Number(v)||0; const bounded=Math.max(0,Math.min(max,raw)); state.mark.results[i].score = bounded/max;
+            })));
+          }
+          one.appendChild(field('Feedback', textarea(state.mark.results[i].feedback||'', v=> state.mark.results[i].feedback=v)));
+          card.appendChild(one);
+        });
+        card.appendChild(btnPrimary('Save marks (mock)', ()=>{
+          const avg = state.mark.results.reduce((s,r)=>s+(r.score||0),0)/ (state.mark.results.length||1);
+          state.mark.score = avg; toast('Marks saved (demo)');
+        }));
+        body.appendChild(card);
+      }
+
+      // ===== EXPORT =====
+      function renderExport(){
+        body.innerHTML=''; const card=el('div','card grid');
+        card.appendChild(h('div','section-title','Export preview'));
+        const total = (state.mark.score==null) ? '-' : Math.round(state.mark.score*100)+'%';
+        card.append(p('<b>Worksheet:</b> '+esc(state.worksheet.title)));
+        card.append(p('<b>Student:</b> '+esc(state.student.name || 'Jane Example')));
+        card.append(p('<b>Code:</b> <span class="kbd">'+esc(state.worksheet.code)+'</span>'));
+        card.append(p('<b>Total score:</b> '+total));
+        card.append(document.createElement('hr'));
+        state.worksheet.questions.forEach((q,i)=>{
+          const r=state.mark.results[i]||{}, mode=q.mode||'percentage', max=q.max ?? 100;
+          const shown = (typeof r.score==='number') ? (mode==='competency' ? (r.score===1?'Competent':'Not yet') : (Math.round(r.score*max)+'/'+max)) : '-';
+          const block=el('div','q-card');
+          block.appendChild(p('<b>Q'+(i+1)+'.</b> '+esc(q.text)));
+          block.appendChild(p('<span class="muted">Answer:</span> '+esc(state.student.answers[i]?.a || '')));
+          const note=el('div','notice'); note.textContent='Mark: '+shown+(r.feedback?(' • '+r.feedback):'');
+          block.appendChild(note); card.appendChild(block);
+        });
+        card.appendChild(btn('Print / Save as PDF', ()=> window.print()));
+        body.appendChild(card);
+      }
+
+      /* Helpers */
+      function el(t,c){const n=document.createElement(t); if(c) n.className=c; return n}
+      function h(t,c,x){const n=el(t,c); if(x!=null) n.textContent=x; return n}
+      function p(html,node){const d=document.createElement('div'); d.innerHTML=html; if(node) d.appendChild(node); return d}
+      function code(txt){const s=document.createElement('span'); s.className='kbd'; s.textContent=txt; return s}
+      function input(type,val,on,ro){const i=document.createElement('input'); i.type=type; i.value=val??''; i.className='input'; i.readOnly=!!ro; i.oninput=()=>on&&on(i.value); return i}
+      function textarea(val,on){const t=document.createElement('textarea'); t.className='input'; t.value=val??''; t.oninput=()=>on&&on(t.value); return t}
+      function select(opts,val,on){const s=document.createElement('select'); s.className='input'; opts.forEach(o=>{const op=document.createElement('option'); op.value=o.v; op.textContent=o.t; if(o.v===val) op.selected=true; s.appendChild(op)}); s.onchange=()=>on&&on(s.value); return s}
+      function btn(label,on){const b=document.createElement('button'); b.className='btn'; b.textContent=label; b.onclick=on; return b}
+      function btnPrimary(label,on){const b=btn(label,on); b.classList.add('primary'); return b}
+      function labelRow(node,text){const r=el('label','row'); r.append(node, document.createTextNode(' '+text)); return r}
+      function checkbox(ch,on){const c=document.createElement('input'); c.type='checkbox'; c.checked=!!ch; c.onchange=()=>on&&on(c.checked); return c}
+      function field(label,node){const w=el('label','grid'); const l=document.createElement('div'); l.textContent=label; w.append(l,node); return w}
+      function notice(txt){const n=el('div','notice'); n.textContent=txt; return n}
+      function toast(msg){const t=notice(msg); t.style.position='fixed'; t.style.bottom='16px'; t.style.left='50%'; t.style.transform='translateX(-50%)'; t.style.zIndex='50'; document.body.appendChild(t); setTimeout(()=>t.remove(),1500)}
+      function esc(s){return String(s||'').replace(/[&<>"]/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]))}
+      function muted(txt){ const s=document.createElement('span'); s.className='muted'; s.textContent=txt; return s } /* <-- added */
+      function close(){document.body.removeChild(backdrop)}
+    }
+  })();
   </script>
 </body>
 </html>
+

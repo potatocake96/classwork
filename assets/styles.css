@@ -62,3 +62,14 @@ body.modal-open{overflow:hidden;height:100vh}
 .modal{width:min(820px,94vw);max-height:calc(100svh - 24px);display:flex;flex-direction:column;overflow:hidden}
 .modal .modal-body{flex:1;overflow:auto;-webkit-overflow-scrolling:touch}
 .modal .modal-head,.modal .modal-foot{flex:0 0 auto}
+
+/* === Pro polish (non-breaking) === */
+.card { border-radius: 14px; box-shadow: 0 8px 24px rgba(15,23,42,.06); }
+.btn.primary { background: linear-gradient(180deg, #fde047, #facc15); color:#1f2937; border-color:#eab308; }
+.badge { background:#f1f5f9; padding:2px 8px; border-radius:999px; font-size:12px; }
+.table-wrap { overflow:auto; background:#fff; border:1px solid var(--line); border-radius:12px; }
+.table th { background:#f8fafc; position:sticky; top:0; }
+.notice { border-left:4px solid #f59e0b; }
+.modal .modal-head { background:#f8fafc; }
+.grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap:14px; }
+@media (max-width: 720px){ .grid-2 { grid-template-columns: 1fr; } }

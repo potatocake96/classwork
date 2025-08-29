@@ -1,0 +1,10 @@
+
+# Deploy with: wrangler deploy
+name = "classwork-groq-proxy"
+main = "worker.js"
+compatibility_date = "2024-06-01"
+
+[vars]
+# Set these before deploy:
+# GROQ_API_KEY = "sk_groq_..."
+# APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfy.../exec"

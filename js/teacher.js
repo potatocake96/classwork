@@ -9,6 +9,10 @@
     return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
   }
 
+
+// Make esc available to other scripts (like worksheet-ai.js)
+window.esc = esc;
+
   function main(){
     $fb.auth.onAuthStateChanged(async (u)=>{
       if (!u){ window.location.href = 'login.html'; return; }
@@ -228,6 +232,7 @@
             <td>
               <button class="btn" data-sub="${doc.id}" data-act="view">View</button>
               <button class="btn primary" data-sub="${doc.id}" data-act="mark">Mark</button>
+              <button class="btn" data-sub="${doc.id}" data-act="aimark">AI Mark</button>
               <button class="btn" data-sub="${doc.id}" data-act="export">Export</button>
             </td>
           </tr>`;
@@ -247,6 +252,10 @@
     if(act==='view'){
       const txt = (sub.answers||[]).map((a,i)=>`Q${i+1}: ${a.q}\nA: ${a.a}`).join('\n\n');
       window.showModal('Submission', `<pre style="white-space:pre-wrap">${esc(txt)}</pre>`, [{id:'close', label:'Close', onClick:(w)=>window.closeModal(w)}]);
+      return;
+    }
+    if(act==='aimark'){
+      await window.WSAI.aiMark(uid, wid, subId);
       return;
     }
     if(act==='mark'){
@@ -349,4 +358,16 @@
       return;
     }
   }
+})();
+
+
+// === AI buttons bootstrap ===
+(function(){
+  function ready(fn){ if(document.readyState!=='loading') fn(); else document.addEventListener('DOMContentLoaded', fn); }
+  ready(function(){
+    var gen = document.getElementById('ai-generate');
+    var imp = document.getElementById('docx-import');
+    if(gen){ gen.addEventListener('click', function(){ window.WSAI && window.WSAI.openGenerator && window.WSAI.openGenerator(); }); }
+    if(imp){ imp.addEventListener('click', function(){ window.WSAI && window.WSAI.openDocxImport && window.WSAI.openDocxImport(); }); }
+  });
 })();
